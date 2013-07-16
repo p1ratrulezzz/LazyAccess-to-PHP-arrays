@@ -6,11 +6,11 @@
 /*
  * Lazy access to the elements in array
  * @todo Provide possibility of using nested objects as well as arrays
- * @todo Provide methods for type conversion (C# style: asString(), asInteger(), asFloat() and etc)
- * @todo Fix ->raw() method for properly getting raw data
  * @todo Lazy setters?
  * @todo Implement setters
  * @todo Auto type conversions on getting values according to the $defaults array
+ *
+ * @deprecated
  */
 class LazyAccess implements Iterator, ArrayAccess {
   protected $_values = array();
@@ -25,10 +25,17 @@ class LazyAccess implements Iterator, ArrayAccess {
     $this->__setKey();
   }
 
+  /**
+   *  Magic __isset() method
+   */
   public function __isset($key) {
     return isset($this->_values[$key]);
   }
 
+  /**
+   *  Magic __get() method
+   *  @return LazyAccess,mixed
+   */
   public function __get($key) {
     if (!empty($this->_values) && !is_array($this->_values)) {
       return $this->normalizeValues($this->_values);
@@ -111,15 +118,31 @@ class LazyAccess implements Iterator, ArrayAccess {
     return $this->_current_key ? TRUE : FALSE;
   }
 
-  //Array Access
+  /**
+   * Implements ArrayAccess::offsetExists()
+   * @param mixed $offset
+   * @return bool
+   */
   public function offsetExists($offset) {
     return $this->__isset($offset);
   }
 
+  /**
+   * Implements ArrayAccess::offsetGet()
+   * @param mixed $offset
+   * @return LazyAccess
+   */
   public function offsetGet($offset) {
     return $this->{$offset};
   }
 
+  /**
+   * Implements ArrayAccess::offsetGet()
+   * @param mixed $offset
+   * @param mixed $value
+   * @throws Exception
+   * @todo Implement setters
+   */
   public function offsetSet($offset, $value) {
     throw new Exception('Not implemented yet!');
   }
@@ -142,23 +165,35 @@ class LazyAccess implements Iterator, ArrayAccess {
   public function isEmpty() {
     return empty($this->_values);
   }
-
-
-  //public function __clone() {}
 }
 
+
+/**
+ * Provides some type conversion methods like
+ *  asString()
+ *  asFloat()
+ *  asDouble()
+ *  asInteger()
+ *  value() -- actually gets raw value
+ *
+ */
 class LazyAccessTyped extends LazyAccess {
 
   /**
    * Overrides LazyAccess::normalizeValues()
    * Always get an instance of LazyAccessTyped
    * @param $values
-   * @return LazyAccess
+   * 	an array reference with data to wrap
+   * @return LazyAccessTyped
    */
   protected function normalizeValues(&$values) {
     return new LazyAccessTyped($values);
   }
 
+  /*
+   * Gets raw value or default
+   * @todo value() should convert type according to defaults array
+   */
   public function value($default = NULL) {
     $ret = $this->getNormalValOrNull();
     if ($ret === NULL) {
@@ -168,6 +203,11 @@ class LazyAccessTyped extends LazyAccess {
     return $ret;
   }
 
+  /**
+   * Gets and integer value
+   * @param mixed $default
+   * @return int|null
+   */
   public function asInteger($default = NULL) {
     $ret = $this->getNormalValOrNull();
     if ($ret === NULL) {
@@ -207,64 +247,3 @@ class LazyAccessTyped extends LazyAccess {
   }
 }
 
-/**
- * @todo Magic storage to provide storing objects
- * @todo
- * @todo
- */
-abstract class MagicStorage {
-  protected $storage = NULL;
-  public function __construct(&$values) {
-    $this->storage = &$values;
-  }
-
-  function exists() {
-
-  }
-}
-
-interface MagicStorageAdapterInterface {
-  public function exists();
-  public function get();
-  //public function getStorage();
-  //public function set();
-}
-
-abstract class MagicStorageAdapterAbstract implements MagicStorageAdapterInterface {
-  protected $storage = array();
-  protected $storage_key = 'default';
-  protected function &getStorage() {
-    return $this->storage[$this->storage_key];
-  }
-
-  protected function setStorage(&$values) {
-
-    $this->storage[$this->storage_key] = &$values;
-  }
-
-  protected function defineStorageKey(&$values) {
-    $this->storage_key = 'default';
-    if (is_array($values)) {
-      $this->storage_key = 'array';
-    }elseif (is_object($values)) {
-      $this->storage_key = 'object';
-    }
-  }
-}
-
-class MagicStorage_array extends MagicStorageAdapterAbstract {
-  public function exists() {
-
-  }
-  public function get() {
-
-  }
-
-  protected function getStorage() {
-
-  }
-}
-
-/*class MagicStorage_object implements MagicStorageAdapterInterface {
-
-}*/
