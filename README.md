@@ -1,9 +1,13 @@
 LazyAccess
 ==========
 
+LazyAccess is a wrapper around any arrays. Provides easy way of getting it's values or get a default value instead.
+
+Replaces stupid long constructions like isset($var) ? $var : NULL.
+
 #Description
 
-LazyAccess is a wrapper around any arrays. Provides easy way of getting it's values or get a default value instead.
+
 For example:
   usual PHP code is 
 
