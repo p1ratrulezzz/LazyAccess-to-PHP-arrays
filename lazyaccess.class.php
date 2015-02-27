@@ -21,7 +21,7 @@ class LazyAccess implements Iterator, ArrayAccess {
     $this->_values = &$values;
     $this->_defaults = $defaults;
 
-    reset($this->_values);
+    $this->rewind();
     $this->__setKey();
   }
 
@@ -29,7 +29,7 @@ class LazyAccess implements Iterator, ArrayAccess {
    *  Magic __isset() method
    */
   public function __isset($key) {
-    return isset($this->_values[$key]);
+    return $this->isArray() ? isset($this->_values[$key]) : !$this->isEmpty();
   }
 
   /**
@@ -69,16 +69,20 @@ class LazyAccess implements Iterator, ArrayAccess {
     return $this->_values;
   }
 
-  protected function normalizeValues($values) {
+  protected function normalizeValues(&$values) {
     if (!is_array($values)) { //} && !is_object($values)) {
       return $values;
     }
 
-    return new LazyAccess($values);
+    return new static($values);
   }
 
   protected function __setKey() {
-    $this->_current_key = key($this->_values);
+    $this->_current_key = $this->isArray() ? key($this->_values) : TRUE;
+  }
+
+  protected function isArray() {
+    return is_array($this->_values);
   }
 
   public function __toString() {
@@ -110,12 +114,15 @@ class LazyAccess implements Iterator, ArrayAccess {
   }
 
   public function rewind() {
-    reset($this->_values);
+    if ($this->isArray()) {
+      reset($this->_values);
+    }
+
     $this->__setKey();
   }
 
   public function valid() {
-    return $this->_current_key ? TRUE : FALSE;
+    return $this->_current_key !== NULL ? TRUE : FALSE;
   }
 
   /**
@@ -152,10 +159,10 @@ class LazyAccess implements Iterator, ArrayAccess {
   }
 
 
-  protected function getNormalValOrNull($default = NULL) {
+  protected function getNormalValOrNull($default = NULL, $skip_arrays = TRUE) {
     $ret = $this->normalizeValues($this->_values);
 
-    if ($ret->isEmpty() || is_array($ret->_values) || is_object($ret->_values)) {
+    if ($ret->isEmpty() || ($skip_arrays && (is_array($ret->_values) || is_object($ret->_values)))) {
       return $default;
     }
 
@@ -163,7 +170,7 @@ class LazyAccess implements Iterator, ArrayAccess {
   }
 
   public function isEmpty() {
-    return empty($this->_values);
+    return $this->_values === NULL;
   }
 }
 
@@ -195,7 +202,7 @@ class LazyAccessTyped extends LazyAccess {
    * @todo value() should convert type according to defaults array
    */
   public function value($default = NULL) {
-    $ret = $this->getNormalValOrNull();
+    $ret = $this->getNormalValOrNull($default, FALSE);
     if ($ret === NULL) {
       return $default;
     }
@@ -244,6 +251,10 @@ class LazyAccessTyped extends LazyAccess {
     }
 
     return $ret;
+  }
+
+  public function __toString() {
+    return (string) $this->asString('');
   }
 }
 
