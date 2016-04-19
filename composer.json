@@ -1,7 +1,6 @@
 {
     "name": "p1ratrulezzz/lazyaccess",
     "description": "Provides LazyAccess posiblity to array elements",
-    "type": "composer-plugin",
     "license": "MIT",
     "authors": [
         {
