@@ -1,0 +1,27 @@
+{
+    "name": "p1ratrulezzz/lazyaccess",
+    "description": "Provides LazyAccess posiblity to array elements",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "P1ratRuleZZZ",
+            "email": "developer@p1ratrulezzz.me"
+        }
+    ],
+    "require": {
+        "composer-plugin-api": "^1.0",
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "composer/composer": "1.0.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "P1ratRuleZZZ\\Tools\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
