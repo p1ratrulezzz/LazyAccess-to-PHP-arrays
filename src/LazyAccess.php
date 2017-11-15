@@ -14,7 +14,7 @@ namespace P1ratRuleZZZ\Tools;
  *
  * @deprecated
  */
-class LazyAccess implements Iterator, ArrayAccess {
+class LazyAccess implements \Iterator, \ArrayAccess {
   protected $_values = array();
   protected $_defaults = array();
   protected $_current_key = NULL;
