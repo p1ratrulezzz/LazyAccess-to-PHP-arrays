@@ -69,4 +69,4 @@ It provides ability to use array operator ("[]") or object operator ("->") to ac
 
 There are two classes LazyAccess and LazyAccessTyped. LazyAccessTyped provides ability to use converters such as asFloat(), asInteger() and etc.
 
-Please, do not use LazyAccess, cause it can behave unpredictible with it's return value. LazyAccessTyped is more better decision.
+Please, do not use LazyAccess, cause it can behave unpredictible with it's return value. LazyAccessTyped is much better and safer.
