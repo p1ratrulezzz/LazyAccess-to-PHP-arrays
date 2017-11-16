@@ -25,17 +25,17 @@ Update your composer.json with following:
 ```
 and run 
 ```bash
-    composer install  
+composer install  
 ```
 or (recommended)
 ```bash
-    composer require p1ratrulezzz/lazyaccess master
+composer require p1ratrulezzz/lazyaccess master
 ```
 Second method will allow you to install this package without manual changes in composer.lock file.
 
 ## Manual installation
 ```bash
-    git clone --branch master https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git lazyaccess
+git clone --branch master https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git lazyaccess
 ```    
 Then in PHP code include the files
 ```php
