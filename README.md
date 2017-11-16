@@ -6,9 +6,41 @@ LazyAccess is a wrapper around any arrays. Provides easy way of getting it's val
 Replaces stupid long constructions like 
 
     isset($var) ? $var : NULL.
+    
+# Installation
 
-#Description
+## Using composer
 
+Update your composer.json with following:
+
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git"
+        }
+    ],
+    require: [
+        "p1ratrulezzz/lazyaccess": "master"
+    ]
+
+and run 
+
+    composer install  
+or (recommended)
+    composer require p1ratrulezzz/lazyaccess master
+
+Second method will allow you to install this package without changing composer.lock file.
+
+## Manual installation
+
+    git clone --branch master https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git lazyaccess
+    
+Then in PHP code include the files
+
+    require_once 'lazyaccess/src/LazyAccess.php';
+    require_once 'lazyaccess/src/LazyAccessTyped.php';
+
+# Description
 
 For example:
   usual PHP code is 
