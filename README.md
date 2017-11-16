@@ -27,6 +27,7 @@ and run
 
     composer install  
 or (recommended)
+
     composer require p1ratrulezzz/lazyaccess master
 
 Second method will allow you to install this package without changing composer.lock file.
