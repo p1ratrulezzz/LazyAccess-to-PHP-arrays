@@ -30,7 +30,7 @@ or (recommended)
 
     composer require p1ratrulezzz/lazyaccess master
 
-Second method will allow you to install this package without manually changing composer.lock file.
+Second method will allow you to install this package without manual changes in composer.lock file.
 
 ## Manual installation
 
