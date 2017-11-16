@@ -19,9 +19,9 @@ Update your composer.json with following:
             "url": "https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git"
         }
     ],
-    require: [
+    require: {
         "p1ratrulezzz/lazyaccess": "master"
-    ]
+    }
 ```
 and run 
 ```bash
