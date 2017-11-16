@@ -58,8 +58,10 @@ With LazyAccess same code will be
     //or
     $somevar = $array->$key->key2->0->value('some_default_value'); //the same as the above
     // Also there are some wrappers with types: asString(), asInteger(), asDouble()
-    $somevar $array->{$key}->key2->0->asString('some_default_value');
-    $somevar $array->{$key}->key2->0->asInteger(0); // It will perform intval() operation before returning, so you can be sure that there will be an integer value.
+    $somevar = $array->{$key}->key2->0->asString('some_default_value');
+    $somevar = $array->{$key}->key2->0->asInteger(0); // It will perform intval() operation before returning, so you can be sure that there will be an integer value.
+    // asDouble() also will replace comma "," to a point ".", for example value 1,93 will be converted to 1.93
+    $floating_point_value = new LazyAccessTyped(['test_float' => ['inner' => '1,93']])->test_float->inner->asDouble(0); // Will return 1.93
     
 It provides ability to use array operator ("[]") or object operator ("->") to access nesting array elements!
 
