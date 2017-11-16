@@ -57,6 +57,10 @@ With LazyAccess same code will be
     $somevar = $array[$key]['key2'][0]->value('some_default_value'); //the same as the above
     //or
     $somevar = $array->$key->key2->0->value('some_default_value'); //the same as the above
+    // Also there are some wrappers with types: asString(), asInteger(), asDouble()
+    $somevar $array->{$key}->key2->0->asString('some_default_value');
+    $somevar $array->{$key}->key2->0->asInteger(0); // It will perform intval() operation before returning, so you can be sure that there will be an integer value.
+    
 It provides ability to use array operator ("[]") or object operator ("->") to access nesting array elements!
 
 #Note
