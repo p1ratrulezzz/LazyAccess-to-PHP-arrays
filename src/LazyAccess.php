@@ -18,6 +18,7 @@ class LazyAccess implements \Iterator, \ArrayAccess {
   protected $_values = array();
   protected $_defaults = array();
   protected $_current_key = NULL;
+  protected $_empty = FALSE;
 
   public function __construct(&$values, $defaults = array()) {
     $this->_values = &$values;
@@ -25,6 +26,7 @@ class LazyAccess implements \Iterator, \ArrayAccess {
 
     $this->rewind();
     $this->__setKey();
+    $this->setEmpty(FALSE);
   }
 
   /**
@@ -48,7 +50,8 @@ class LazyAccess implements \Iterator, \ArrayAccess {
     elseif (!isset($this->_values[$key])) {
       //return NULL;
       $empty = array();
-      return $this->normalizeValues($empty);
+      return $this->normalizeValues($empty)
+        ->setEmpty(TRUE); // Mark this as empty.
     }
 
     return $this->normalizeValues($this->_values[$key]);
@@ -77,6 +80,11 @@ class LazyAccess implements \Iterator, \ArrayAccess {
     }
 
     return new static($values);
+  }
+
+  public function setEmpty($status) {
+    $this->_empty = $status;
+    return $this;
   }
 
   protected function __setKey() {
@@ -172,6 +180,6 @@ class LazyAccess implements \Iterator, \ArrayAccess {
   }
 
   public function isEmpty() {
-    return $this->_values === NULL;
+    return $this->_empty; // $this->_values === NULL;
   }
 }
