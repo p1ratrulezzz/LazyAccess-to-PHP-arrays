@@ -13,12 +13,6 @@ isset($var) ? $var : NULL.
 
 Update your composer.json with following:
 ```json
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/p1ratrulezzz/LazyAccess-to-PHP-arrays.git"
-        }
-    ],
     require: {
         "p1ratrulezzz/lazyaccess": "master"
     }
