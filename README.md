@@ -1,6 +1,13 @@
 LazyAccess
 ==========
 
+[![Latest Stable Version](https://poser.pugx.org/p1ratrulezzz/lazyaccess/v/stable)](https://packagist.org/packages/p1ratrulezzz/lazyaccess)
+[![Latest Unstable Version](https://poser.pugx.org/p1ratrulezzz/lazyaccess/v/unstable)]
+[![Total Downloads](https://poser.pugx.org/p1ratrulezzz/lazyaccess/downloads)](https://packagist.org/packages/p1ratrulezzz/lazyaccess)
+(https://packagist.org/packages/p1ratrulezzz/lazyaccess)
+[![License](https://poser.pugx.org/p1ratrulezzz/lazyaccess/license)](https://packagist.org/packages/p1ratrulezzz/lazyaccess)
+
+
 LazyAccess is a wrapper around any arrays. Provides easy way of getting it's values or get a default value instead.
 
 Replaces stupid long constructions like 
